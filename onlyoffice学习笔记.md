@@ -12,6 +12,8 @@
 
 https://www.onlyoffice.com/zh/
 
+https://www.onlyoffice.org.cn/
+
 
 
 ## 功能
@@ -261,6 +263,85 @@ PS C:\Users\mao\Desktop>
 }
 ```
 
+```json
+{
+    "async": false,
+    "filetype": "docx",
+    "key": "Khirz6zTPdfd7",
+    "outputtype": "pdf",
+    "title": "Example Document Title.docx", 
+    "url": "https://example.com/url-to-example-document.docx"
+}
+```
+
+其中example.com是安装文档管理器和文档存储服务的服务器的名称
+
+* title：文件名称
+* filetype：要转换的文件类型
+* async：是否异步执行
+* outputtype：转换后的文件
+* url：要转换的文件的链接
+
+
+
+
+
+```json
+{
+    "async": false,
+    "filetype": "docx",
+    "key": "Khirz6zTPdfd7",
+    "outputtype": "pdf",
+    "password": "123456",
+    "title": "Example Document Title.docx",
+    "url": "https://example.com/url-to-example-document.docx"
+}
+```
+
+发送到文档转换服务的 JSON 对象示例，用于将受密码保护的文件从*docx*格式转换为*pdf*格式
+
+
+
+```json
+{
+    "filetype": "xlsx",
+    "key": "Khirz6zTPdfd7",
+    "outputtype": "pdf",
+    "region": "en-US",
+    "spreadsheetLayout": {
+        "ignorePrintArea": true,
+        "orientation": "portrait",
+        "fitToWidth": 0,
+        "fitToHeight": 0,
+        "scale": 100,
+        "headings": false,
+        "gridLines": false,
+        "pageSize": {
+            "width": "210mm",
+            "height": "297mm"
+        },
+        "margins": {
+            "left": "17.8mm",
+            "right": "17.8mm",
+            "top": "19.1mm",
+            "bottom": "19.1mm"
+        }
+    },
+    "title": "Example Document Title.docx",
+    "url": "https://example.com/url-to-example-spreadsheet.xlsx"
+}
+```
+
+将*电子表格*文件转换为*pdf*格式的文档转换服务的 JSON 对象示例
+
+
+
+
+
+
+
+
+
 
 
 响应示例：
@@ -277,7 +358,99 @@ PS C:\Users\mao\Desktop>
 
 
 
+![image-20230915151732024](img/onlyoffice学习笔记/image-20230915151732024.png)
 
+
+
+
+
+
+
+在线网站请求示例
+
+![image-20230915154015273](img/onlyoffice学习笔记/image-20230915154015273.png)
+
+
+
+![image-20230915154036247](img/onlyoffice学习笔记/image-20230915154036247.png)
+
+
+
+![image-20230915154129632](img/onlyoffice学习笔记/image-20230915154129632.png)
+
+
+
+响应：
+
+```json
+{
+    "status": "convertRequestSuccessful",
+    "message": "5bdfb216-0856-481c-a23f-7f6387531caa",
+    "rs1": "https://asc.docs.onlyoffice.co/cache/files/data/asc.docs.onlyoffice.co/conv_4d04c433_b4f9_4b5c_94ba_e0c3ad145b41_xlsx/output.xlsx/4d04c433-b4f9-4b5c-94ba-e0c3ad145b41.xlsx?md5=U3mzoef37K6HXiZ4FxH9lA&expires=1694764439&filename=%E8%A1%8C%E6%94%BF%E5%8C%BA%E5%9F%9F.xlsx",
+    "rs2": "https://asc.docs.onlyoffice.co/cache/files/data/asc.docs.onlyoffice.co/conv_4d04c433_b4f9_4b5c_94ba_e0c3ad145b41_png/output.png/4d04c433-b4f9-4b5c-94ba-e0c3ad145b41.png?md5=4mjKLGKc-a4sPiufI_CcrA&expires=1694764446&filename=4d04c433-b4f9-4b5c-94ba-e0c3ad145b41.png"
+}
+```
+
+
+
+
+
+
+
+
+
+## 项目示例
+
+* nodeJS：https://api.onlyoffice.com/editors/example/nodejs
+* java：https://api.onlyoffice.com/editors/example/java
+* spring：https://api.onlyoffice.com/editors/example/javaspring
+
+
+
+单页面：
+
+```html
+<!DOCTYPE html>
+<html class="full-screen">
+<head>
+    <meta charset="UTF-8">
+    <title>ONLYOFFICE使用方法</title>
+    <!-- 引入外部JavaScript文件 -->
+    <script type="text/javascript" src="http://127.0.0.1:8147/web-apps/apps/api/documents/api.js"></script>
+</head>
+<body class="full-screen">
+<div id="officeContent"></div>
+
+<script language="javascript" type="text/javascript">
+    var docEditor = new DocsAPI.DocEditor("officeContent", {
+        "document": {
+            "permissions": {
+                "edit": false,
+            },
+            "fileType": "docx",
+            "title": "Example Document Title.docx",
+            "url": "index.html"
+            // 文件所在的网络地址（http://ip:port/demo.docx），此地址必须是onlyoffice服务器所能访问到的地址
+        },
+        "documentType": "word",
+        "editorConfig": {
+            "callbackUrl": "", // 编辑保存回调地址
+            "lang": "zh-CN" // 中文
+        },
+        "height": "100%",
+        "width": "100%",
+        "type": "embedded" // 嵌入式，默认"desktop"
+    });
+</script>
+</body>
+<style type="text/css">
+    .full-screen {
+        height: 100%;
+        overflow: hidden;
+    }
+</style>
+</html>
+```
 
 
 
